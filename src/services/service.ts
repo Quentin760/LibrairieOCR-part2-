@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import DataSnapshot = firebase.database.DataSnapshot;
 import { Subject } from "rxjs/Subject";
 import { Injectable } from "@angular/core";
+import { Storage } from "@ionic/storage";
 
 @Injectable()
 export class Service {
@@ -76,6 +77,7 @@ export class Service {
           )
           firebase.database().ref('book').set(this.bookList).then(
                 (data: DataSnapshot) => {
+                  console.log("save book");
                   resolve(data);
                 },
             (error) => {
