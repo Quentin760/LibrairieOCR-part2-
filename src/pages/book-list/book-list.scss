@@ -1,0 +1,13 @@
+page-book-list {
+
+    .isLend {
+        ion-list {
+          background-color: #eeffee;
+        }
+      }
+      .isNoLend {
+        iion-list {
+          background-color: #ffeeee;
+        }
+      }
+}
