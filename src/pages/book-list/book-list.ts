@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Book } from '../../models/Book';
 import { Service } from '../../services/service';
 import { MenuController, ModalController } from 'ionic-angular';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'page-book-list',
   templateUrl: 'book-list.html',
 })
-export class BookListPage  implements OnInit {
+export class BookListPage  implements OnInit, OnDestroy {
 
     bookList: Book[];
     bookSubscription: Subscription; 
@@ -21,12 +21,12 @@ export class BookListPage  implements OnInit {
   }
 
   ngOnInit () {
- /*   this.bookSubscription = this.service.book$.subscribe(
+   this.bookSubscription = this.service.book$.subscribe(
       (book: Book[]) => {
         this.bookList = book;
       }
     ),
-    this.service.fetchList();*/
+    this.service.fetchBookList();
   }
 
   
@@ -44,4 +44,7 @@ export class BookListPage  implements OnInit {
     this.menuCtrl.open();
   }
 
+  ngOnDestroy() {
+    this.bookSubscription.unsubscribe();
+  }
 }

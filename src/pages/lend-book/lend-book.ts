@@ -49,6 +49,8 @@ export class LendBookPage implements OnInit{
   }
 
   onSubmitForm(form: NgForm) {
+    this.service.saveBookList();
+    this.service.emitBook();
     this.viewCtrl.dismiss();
   }
   dismissModal() {

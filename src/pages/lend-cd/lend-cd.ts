@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 import { Cd } from '../../models/Cd';
 import { Service } from '../../services/service';
-import { Book } from '../../models/Book';
+import { FormGroup, FormBuilder, Validators, FormArray, NgForm } from '@angular/forms';
 
 
 @Component({
@@ -13,23 +13,40 @@ export class LendCdPage implements OnInit {
 
   index: number;
   cd: Cd;
-  book:Book;
+  cdForm: FormGroup
+  ;
 
-  constructor(public navParams: NavParams,
-              public viewCtrl: ViewController,
-              public service: Service) {
+  constructor(private navParams: NavParams,
+              private viewCtrl: ViewController,
+              private service: Service,
+              private formBuilder: FormBuilder) {
   }
 
-  ngOnInit () {
+  ngOnInit() {
     this.index = this.navParams.get('index');
     this.cd = this.service.cdList[this.index];
-
+    this.initForm();
   }
 
+  initForm() {
+    this.cdForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      nameOfLend: this.formBuilder.array([])
+    });
+  }
+
+  getNameOfLendArray() {
+    return this.cdForm.get('nameOfLend') as FormArray;
+  }
   dismissModal() {
     this.viewCtrl.dismiss();
   }
 
+  onSubmitForm(form: NgForm) {
+    this.service.saveCdList();
+    this.service.emitCd();
+    this.viewCtrl.dismiss();
+  }
 
   onLend() { 
     

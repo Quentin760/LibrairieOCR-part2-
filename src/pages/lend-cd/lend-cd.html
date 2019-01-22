@@ -21,5 +21,20 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <form #f="ngForm" (ngSubmit)="onSubmitForm()">
+        <ion-list *ngIf="cd.isLend">
+          <ion-item >
+            <ion-label>Nom de l'emprunteur</ion-label>
+            <ion-input name="nameOfLend" [(ngModel)]="cd.nameOfLend"></ion-input>
+          </ion-item>
+          
+        </ion-list>
+        <ion-buttons>
+          <button type="submit"
+          ion-button
+          full
+          color="secondary">Valider</button>
+        </ion-buttons>
+        </form>
     </ion-card>
   </ion-content>

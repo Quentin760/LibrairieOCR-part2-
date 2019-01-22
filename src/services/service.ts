@@ -62,10 +62,10 @@ export class Service {
     }
 
     emitCd() {
-        this.cd$.next(this.cdList);
+        this.cd$.next(this.cdList.slice());
       }
     emitBook() {
-        this.book$.next(this.bookList);
+        this.book$.next(this.bookList.slice());
       }
 
     saveData() {
@@ -108,11 +108,14 @@ export class Service {
         });
       }
 
-      saveList() {
+      saveBookList() {
         this.storage.set('book', this.bookList);
       }
+      saveCdList() {
+        this.storage.set('cd', this.cdList);
+      }
     
-      fetchList() {
+      fetchBookList() {
         this.storage.get('book').then(
           (list) => {
             if (list && list.length) {
@@ -121,5 +124,16 @@ export class Service {
             this.emitBook();
           }
         );
+      }
+
+      fetchCdList() {
+        this.storage.get('cd').then(
+          (list) => {
+            if (list && list.length) {
+              this.cdList = list.slice();
+            }
+            this.emitCd();
+          }
+        )
       }
 }
